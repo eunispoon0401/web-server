@@ -28,11 +28,11 @@ class MultiThreadedServer:
         while True:
             client_sock, client_addr = self.server_socket.accept()
             # Start a new thread for each connection
-            thread = threading.Thread(target=self.handle_client, args=(client_sock, client_addr))
+            thread = threading.Thread(target=self.client_request, args=(client_sock, client_addr))
             thread.daemon = True
             thread.start()
 
-    def handle_client(self, client_sock, client_addr):
+    def client_request(self, client_sock, client_addr):
         client_sock.settimeout(5.0)  # Timeout for persistent connections
         keep_alive = True
 
