@@ -48,8 +48,9 @@ class MultiThreadedServer:
                 
                 # 400 Bad Request
                 if len(request_line) < 3:
-                    self.send_error(client_sock, "400 Bad Request", "Malformed request.")
-                    break
+                    self.send_error(client_sock, "400 Bad Request", "Malformed")
+                    self.log_request(client_addr[0], "Unknown", "400")
+                    return
 
                 method = request_line[0].upper()
                 file_path_req = request_line[1]
@@ -71,11 +72,12 @@ class MultiThreadedServer:
                     break
 
                 # 403 Forbidden & File Security
+                base_dir = os.path.abspath(WEB_ROOT)
                 full_path = os.path.abspath(os.path.join(WEB_ROOT, file_path_req.lstrip("/")))
-                if not full_path.startswith(os.path.abspath(WEB_ROOT)) or ".htaccess" in full_path:
-                    self.send_error(client_sock, "403 Forbidden", "Access Denied.", keep_alive)
+                if not full_path.startswith(base_dir):
+                    self.send_error(client_sock, "403 Forbidden", "Access Denied")
                     self.log_request(client_addr[0], file_path_req, "403")
-                    break
+                    return
 
                 # 404 Not Found
                 if not os.path.exists(full_path) or os.path.isdir(full_path):
