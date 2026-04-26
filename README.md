@@ -21,7 +21,7 @@ All test code are shown in the test floder<br>
 2.  <code>304 Not Modified</code><br>
     Find the Last-Modified date from a previous 200 OK response in access.log and run:<br>
     <code> curl.exe -v -H "If-Modified-Since: [Date from Header]" http://127.0.0.1:8080/index.html</code> or<br>
-    <code>Invoke-WebRequest -Uri "http://127.0.0.1:8080/index.html" -Headers @{"If-Modified-Since"="[Date from Header"} -Verbose</code><br>
+    <code>Invoke-WebRequest -Uri "http://127.0.0.1:8080/index.html" -Headers @{"If-Modified-Since"="[Date from Header]"} -Verbose</code><br>
     For example, <code>curl.exe -v -H "If-Modified-Since: Sun, 26 Apr 2026 02:50:53 GMT" http://127.0.0.1:8080/index.html</code> and <br><code>Invoke-WebRequest -Uri "http://127.0.0.1:8080/index.html" -Headers @{"If-Modified-Since"="Sun, 26 Apr 2026 02:50:53 GMT"} -Verbose</code>
 3.  <code>400 Bad Request</code><br>
     Since standard tools like browsers always send valid requests, use this PowerShell
