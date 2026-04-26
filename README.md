@@ -20,7 +20,8 @@ All test code are shown in the test floder<br>
     The website will shown text and image if it is <code>200 ok</code>
 2.  <code>304 Not Modified</code><br>
     Find the Last-Modified date from a previous 200 OK response in access.log and run:<br>
-    <code> curl.exe -v -H "If-Modified-Since: [Date from Header]" http://127.0.0.1:8080/index.html</code>
+    <code> curl.exe -v -H "If-Modified-Since: [Date from Header]" http://127.0.0.1:8080/index.html</code><br>
+    For example, <code>curl.exe -v -H "If-Modified-Since: Sun, 26 Apr 2026 02:50:53 GMT" http://127.0.0.1:8080/index.html</code>
 3.  <code>400 Bad Request</code><br>
     Since standard tools like browsers always send valid requests, use this PowerShell
     script to send "garbage" text:<br><code>
@@ -46,8 +47,12 @@ All test code are shown in the test floder<br>
 7.  <code>Get</code> Command<br>
     Open the broswer and navigate http://127.0.0.1:8080/index.html and http://127.0.0.1:8080/test_image.jpg<br>
     The text and the image should display correctly in the browser window without corruption.
-8.
-
+8.  <code>Head</code> Command<br>
+    Open the terminal and execute <code>curl.exe -I http://127.0.0.1:8080/index.html</code>
+#  Log File
+All traffic request are stored in access.log.<br>
+To view the log file in real time on terminal, please execute: 
+<code>Get-Content access.log -Wait</code>
 
 
 
