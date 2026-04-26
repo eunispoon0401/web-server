@@ -46,7 +46,7 @@ All test code are shown in the test floder<br>
     Open a new terminal and execute <code>python threads_test.py</code><br>
     10 request records will shown in <code>access.log</code>
 7.  <code>Get</code> Command<br>
-    Open the broswer and navigate http://127.0.0.1:8080/index.html and http://127.0.0.1:8080/test_image.jpg<br>
+    Open the browser and navigate http://127.0.0.1:8080/index.html and http://127.0.0.1:8080/test_image.jpg<br>
     The text and the image should display correctly in the browser window without corruption.
 8.  <code>Head</code> Command<br>
     Open the terminal and execute <code>curl.exe -I http://127.0.0.1:8080/index.html</code>
