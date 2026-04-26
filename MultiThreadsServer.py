@@ -73,7 +73,10 @@ class MultiThreadedServer:
 
                 # 403 Forbidden & File Security
                 base_dir = os.path.abspath(WEB_ROOT)
-                full_path = os.path.abspath(os.path.join(WEB_ROOT, file_path_req.lstrip("/")))
+                requested_file = file_path_req.lstrip("/")
+                full_path = os.path.abspath(os.path.join(base_dir, requested_file))
+                print(f"Root: {base_dir}")
+                print(f"Target: {full_path}")
                 if not full_path.startswith(base_dir):
                     self.send_error(client_sock, "403 Forbidden", "Access Denied")
                     self.log_request(client_addr[0], file_path_req, "403")
