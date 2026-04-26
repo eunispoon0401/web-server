@@ -16,7 +16,6 @@ class MultiThreadedServer:
     def __init__(self, host, port):
         self.host = host
         self.port = port
-        # Create a TCP/IP socket
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
@@ -24,28 +23,24 @@ class MultiThreadedServer:
         self.server_socket.bind((self.host, self.port))
         self.server_socket.listen(5)
         print(f"Server running on http://{self.host}:{self.port}")
-
+        #threading
         while True:
             client_sock, client_addr = self.server_socket.accept()
-            # Start a new thread for each connection
             thread = threading.Thread(target=self.client_request, args=(client_sock, client_addr))
             thread.daemon = True
             thread.start()
 
     def client_request(self, client_sock, client_addr):
-        client_sock.settimeout(5.0)  # Timeout for persistent connections
+        client_sock.settimeout(5.0)
         keep_alive = True
-
         while keep_alive:
             try:
                 request_data = client_sock.recv(1024).decode('utf-8')
                 if not request_data:
                     break
-
-                # Parse Request Line
                 lines = request_data.split("\r\n")
                 request_line = lines[0].split()
-                
+
                 # 400 Bad Request
                 if len(request_line) < 3:
                     self.send_error(client_sock, "400 Bad Request", "Malformed")
@@ -57,7 +52,6 @@ class MultiThreadedServer:
                 if file_path_req == "/":
                     file_path_req = "/index.html"
 
-                # Parse Headers
                 headers = {}
                 for line in lines[1:]:
                     if ": " in line:
@@ -145,7 +139,6 @@ class MultiThreadedServer:
         return "text/plain"
 
     def log_request(self, ip, filename, status):
-        # Python's print and file writing are generally thread-safe for single lines
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         log_entry = f"{ip} | {timestamp} | {filename} | {status}\n"
         with open(LOG_FILE, "a") as f:
