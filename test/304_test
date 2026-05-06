@@ -1,0 +1,3 @@
+Find the Last-Modified date from a previous 200 OK response in access.log and run:
+curl.exe -v -H "If-Modified-Since: [Date from Header]" http://127.0.0.1:8080/index.html or
+Invoke-WebRequest -Uri "http://127.0.0.1:8080/index.html" -Headers @{"If-Modified-Since"="[Date from Header]"} -Verbose
